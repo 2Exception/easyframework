@@ -1,6 +1,7 @@
 package com.yuyenews.servlcet;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
 import com.yuyenews.easy.netty.servlet.EasyServlet;
@@ -14,9 +15,25 @@ public class EasyCoreServlet implements EasyServlet{
 
 	@Override
 	public Object doRequest(HttpRequest request, HttpResponse response) {
-		System.out.println(request.getUri());
+		/* 获取路径 */
+		String uri = request.getUri();
+		if(uri.indexOf("?")>-1) {
+			uri = uri.substring(1,uri.indexOf("?"));
+		}
+		/* 只有html后缀的请求，才会被识别为控制层接口 */
+		if(uri.endsWith(".html")) {
+			System.out.println(request.getUri());
+			
+			
+			
+			return JSON.toJSONString(request.getParemeters());
+		} else {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("error_code", 404);
+			jsonObject.put("error_info", "只有.html结尾的请求，才会被识别为控制层接口");
+			return jsonObject;
+		}
 		
-		return JSON.toJSONString(request.getParemeters());
 	}
 
 }

@@ -64,23 +64,25 @@ public class RequestThread implements Runnable {
 	public void run() {
 
 		try {
+			
 			/* 获取全局存储空间 */
 			Constants constants = Constants.getConstants();
 			/* 从存储空间里获取核心servlet的全限名 */
 			String className = constants.getAttr("core").toString();
 
-			/* 获取路径 */
-			String path = httpRequest.uri();
 			/* 获取请求的方式 */
 			HttpMethod method = httpRequest.method();
-
+			
+			/* 获取路径 */
+			String uri = httpRequest.uri();
+			
 			/* 组装httprequest对象 */
 			HttpRequest request = new HttpRequest();
 			request.setMethod(method);
 			request.setParemeters(parms);
 			request.setBody(body);
-			request.setUri(path);
-			request.setUrl(path);
+			request.setUri(uri);
+			request.setUrl(uri);
 			
 			/* 通过反射执行核心servlet */
 			Class<?> cls = Class.forName(className);
@@ -93,8 +95,6 @@ public class RequestThread implements Runnable {
 				send(ctx, result.toString(), HttpResponseStatus.OK);
 			}
 			
-			
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
