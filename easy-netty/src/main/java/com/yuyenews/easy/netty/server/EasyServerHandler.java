@@ -24,16 +24,13 @@ import io.netty.util.CharsetUtil;
 
 public class EasyServerHandler extends ChannelHandlerAdapter {
 
-	private String result = "";
-
 	/**
 	 * 接收并处理 客户端请求
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		if (!(msg instanceof FullHttpRequest)) {
-			result = "未知请求!";
-			send(ctx, result, HttpResponseStatus.BAD_REQUEST);
+			send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
 			return;
 		}
 		FullHttpRequest httpRequest = (FullHttpRequest) msg;
