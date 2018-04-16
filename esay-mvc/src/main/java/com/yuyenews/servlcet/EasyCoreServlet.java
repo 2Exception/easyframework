@@ -18,7 +18,7 @@ public class EasyCoreServlet implements EasyServlet{
 		/* 获取路径 */
 		String uri = request.getUri();
 		if(uri.indexOf("?")>-1) {
-			uri = uri.substring(1,uri.indexOf("?"));
+			uri = uri.substring(0,uri.indexOf("?"));
 		}
 		/* 只有html后缀的请求，才会被识别为控制层接口 */
 		if(uri.endsWith(".html")) {

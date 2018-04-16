@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.easy.netty.constant.Constants;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
@@ -90,7 +89,7 @@ public class RequestThread implements Runnable {
 			Method helloMethod = cls.getDeclaredMethod("doRequest", new Class[] { HttpRequest.class ,HttpResponse.class});
 			Object result = helloMethod.invoke(object, new Object[] { request ,new HttpResponse()});
 			
-			/* 将控制层的数据，转成json字符串返回 */
+			/* 将控制层返回的数据，转成json字符串返回 */
 			send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
 			
 		} catch (Exception e) {
