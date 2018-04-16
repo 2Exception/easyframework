@@ -10,7 +10,6 @@
 		<module>easy-aop</module>
 		<module>esay-mvc</module>
 		<module>easy-core</module>
-		<module>easy-test</module>
 		<module>easy-netty</module>
 		<module>easy-test-start</module>
 	</modules>
