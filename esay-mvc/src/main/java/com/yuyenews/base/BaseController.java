@@ -32,6 +32,7 @@ public class BaseController {
 	 * @param key
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	private Map<String, Object> getSessionObj(HttpRequest httpRequest, String key) {
 		String sessionId = getSessionId(httpRequest);
 
@@ -61,7 +62,6 @@ public class BaseController {
 	 * @param key
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public Object getHttpSessionValue(HttpRequest httpRequest, String key) {
 
 		Map<String, Object> httpSession2 = getSessionObj(httpRequest, key);

@@ -1,15 +1,10 @@
 package com.yuyenews.easy.netty.server;
 
-import java.io.IOException;
 import java.net.InetAddress;
-import java.util.Hashtable;
-import java.util.Map;
 
-import com.yuyenews.easy.netty.request.RequestParser;
 import com.yuyenews.easy.netty.thread.RequestThread;
 import com.yuyenews.easy.netty.thread.ThreadPool;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
@@ -41,8 +36,6 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 			RequestThread requestThread = new RequestThread();
 			requestThread.setHttpRequest(httpRequest);
 			requestThread.setCtx(ctx);
-			requestThread.setBody(getBody(httpRequest));
-			requestThread.setParms(getPams(httpRequest));
 			ThreadPool.execute(requestThread);
 			
 		} catch (Exception e) {
@@ -56,29 +49,6 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 		} 
 	}
 	
-	/**
-	 * 获取body参数
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private String getBody(FullHttpRequest request) {
-		ByteBuf buf = request.content();
-		return buf.toString(CharsetUtil.UTF_8);
-	}
-
-	/**
-	 * 将GET, POST所有请求参数转换成Map对象
-	 * @param request
-	 */
-	private Map<String, Object> getPams(FullHttpRequest request) {
-		try {
-			return new RequestParser(request).parse();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
-		return new Hashtable<>();
-	}
 	
 	/**
 	 * 发送的返回值
