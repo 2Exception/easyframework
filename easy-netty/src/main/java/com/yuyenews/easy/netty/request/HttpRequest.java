@@ -75,6 +75,10 @@ public class HttpRequest {
 		this.paremeters = paremeters;
 
 	}
+	
+	public Object getParemeter(String key) {
+		return paremeters.get(key);
+	}
 
 	public List<File> getFiles() {
 		return files;
@@ -103,5 +107,4 @@ public class HttpRequest {
 	public String getBody() {
 		return body;
 	}
-
 }

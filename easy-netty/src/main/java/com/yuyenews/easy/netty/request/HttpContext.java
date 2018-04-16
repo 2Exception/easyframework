@@ -32,7 +32,7 @@ public class HttpContext {
 	 * @param key
 	 * @param value
 	 */
-	public void setAttr(String key, String value) {
+	public void setAttr(String key, Object value) {
 		map.put(key, value);
 	}
 
