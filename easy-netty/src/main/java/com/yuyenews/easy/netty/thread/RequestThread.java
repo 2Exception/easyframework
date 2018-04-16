@@ -89,11 +89,9 @@ public class RequestThread implements Runnable {
 			Object object = cls.getDeclaredConstructor().newInstance();
 			Method helloMethod = cls.getDeclaredMethod("doRequest", new Class[] { HttpRequest.class ,HttpResponse.class});
 			Object result = helloMethod.invoke(object, new Object[] { request ,new HttpResponse()});
-			if (result instanceof JSONObject) {
-				send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
-			} else {
-				send(ctx, result.toString(), HttpResponseStatus.OK);
-			}
+			
+			/* 将控制层的数据，转成json字符串返回 */
+			send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

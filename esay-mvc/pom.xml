@@ -4,20 +4,20 @@
 	<parent>
 		<groupId>com.yuyenews</groupId>
 		<artifactId>easy-framework</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>esay-mvc</artifactId>
 
 	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>com.yuyenews</groupId>
 			<artifactId>easy-netty</artifactId>
 		</dependency>
+		
+	  	<dependency>
+	  		<groupId>com.yuyenews</groupId>
+	  		<artifactId>easy-ioc</artifactId>
+	  	</dependency>
 	</dependencies>
 </project>

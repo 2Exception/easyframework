@@ -3,7 +3,14 @@
   <parent>
     <groupId>com.yuyenews</groupId>
     <artifactId>easy-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
   </parent>
   <artifactId>easy-ioc</artifactId>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.yuyenews</groupId>
+  		<artifactId>easy-aop</artifactId>
+  	</dependency>
+  </dependencies>
 </project>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<easy>
-	<suffix>.html</suffix>
-	
-	<logs>
-		<error>/data/logs/error.log</error>
-		<info>/data/logs/info.log</info>
-	</logs>
-</easy>
