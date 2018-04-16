@@ -27,7 +27,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.yuyenews</groupId>
-				<artifactId>easy-mvc</artifactId>
+				<artifactId>esay-mvc</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
