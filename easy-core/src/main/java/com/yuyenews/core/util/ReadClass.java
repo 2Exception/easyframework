@@ -13,12 +13,15 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import com.yuyenews.core.annotation.Controller;
+
 /**
  * 读取class文件
  * 
  * @author yuye
  *
  */
+@Controller
 public class ReadClass {
 
 	/**
