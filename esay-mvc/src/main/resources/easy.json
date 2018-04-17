@@ -1,7 +1,0 @@
-{
-	"port": "8080",
-	"logs": {
-		"error": "/data/opt/logs/error.log",
-		"info": "/data/opt/logs/info.log"
-	}
-}
