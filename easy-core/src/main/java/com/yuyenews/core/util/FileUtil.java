@@ -1,13 +1,10 @@
 package com.yuyenews.core.util;
 
-import com.yuyenews.core.annotation.EasyBean;
-
 /**
  * 文件帮助
  * @author yuye
  *
  */
-@EasyBean(name="files")
 public class FileUtil {
 
 	/**

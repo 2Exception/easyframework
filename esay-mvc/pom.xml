@@ -9,12 +9,6 @@
 	<artifactId>esay-mvc</artifactId>
 
 	<dependencies>
-
-		<dependency>
-			<groupId>com.yuyenews</groupId>
-			<artifactId>easy-netty</artifactId>
-		</dependency>
-		
 	  	<dependency>
 	  		<groupId>com.yuyenews</groupId>
 	  		<artifactId>easy-ioc</artifactId>
