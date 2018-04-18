@@ -10,10 +10,10 @@ public interface BaseAop {
 	/**
 	 * 方法开始前调用
 	 */
-	void startMethod();
+	void startMethod(Object[] args);
 	
 	/**
 	 * 方法结束后调用
 	 */
-	void endMethod();
+	void endMethod(Object[] args);
 }

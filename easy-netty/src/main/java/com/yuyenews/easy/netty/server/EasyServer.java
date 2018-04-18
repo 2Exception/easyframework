@@ -1,5 +1,8 @@
 package com.yuyenews.easy.netty.server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -13,13 +16,13 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class EasyServer {
 
+	private static Logger log = LoggerFactory.getLogger(EasyServer.class);
 	
 	/**
 	 * 启动netty服务
-	 * @param clazz
 	 * @param portNumber
 	 */
-	public static void start(Class<?> clazz,final int portNumber) {
+	public static void start(final int portNumber) {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
@@ -32,12 +35,12 @@ public class EasyServer {
 			/* 服务器绑定端口监听 */
 			ChannelFuture f = b.bind(portNumber).sync();
 			
-			System.out.println("启动成功");
+			log.info("启动结束");
 			
 			/* 监听服务器关闭监听 */
 			f.channel().closeFuture().sync();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("启动netty报错",e);
 		} finally {
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();

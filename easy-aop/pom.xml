@@ -12,5 +12,14 @@
   		<groupId>com.yuyenews</groupId>
   		<artifactId>easy-core</artifactId>
   	</dependency>
+  	
+  	<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
   </dependencies>
 </project>

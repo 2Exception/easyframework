@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yuyenews.core.annotation.Controller;
 import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.util.ReadClass;
@@ -18,6 +21,8 @@ import com.yuyenews.easy.netty.constant.Constants;
  *
  */
 public class LoadClass {
+	
+	private static Logger log = LoggerFactory.getLogger(LoadClass.class);
 	
 	private static Constants constants = Constants.getConstants();
 
@@ -42,7 +47,7 @@ public class LoadClass {
 				
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("扫描["+packageName+"]包下的类发送错误",e);
 		}
 
 	}
@@ -76,22 +81,17 @@ public class LoadClass {
 	@SuppressWarnings("unchecked")
 	private static void loadEasyBean(Class<?> cls,EasyBean easyBean ) {
 		Object objs = constants.getAttr("easyBeans");
-		List<Map<String,Object>> contorls = null;
+		List<Map<String,Object>> easyBeans = null;
 		if(objs != null) {
-			contorls = (List<Map<String,Object>>)objs;
+			easyBeans = (List<Map<String,Object>>)objs;
 		} else {
-			contorls = new ArrayList<>();
+			easyBeans = new ArrayList<>();
 		}
 		Map<String,Object> eb = new HashMap<>();
 		eb.put("className", cls);
 		eb.put("annotation", easyBean);
-		contorls.add(eb);
-		constants.setAttr("easyBeans", eb);
+		easyBeans.add(eb);
+		constants.setAttr("easyBeans", easyBeans);
 		
-	}
-	
-	public static void main(String[] args) {
-		loadBeans("com.yuyenews");
-		System.out.println(constants.getAttr("contorls"));
 	}
 }

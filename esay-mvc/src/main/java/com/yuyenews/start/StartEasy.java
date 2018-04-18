@@ -1,9 +1,14 @@
 package com.yuyenews.start;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.config.Config;
+import com.yuyenews.core.load.LoadClass;
 import com.yuyenews.easy.netty.constant.Constants;
 import com.yuyenews.easy.netty.server.EasyServer;
+import com.yuyenews.ioc.load.LoadEasyBean;
 import com.yuyenews.resolve.LoadController;
 import com.yuyenews.servlcet.EasyCoreServlet;
 
@@ -13,6 +18,8 @@ import com.yuyenews.servlcet.EasyCoreServlet;
  *
  */
 public class StartEasy {
+	
+	private static Logger log = LoggerFactory.getLogger(StartEasy.class);
 	
 	/**
 	 * 获取全局存储空间 
@@ -24,11 +31,15 @@ public class StartEasy {
 	 * @param clazz
 	 */
 	public static void start(Class<?> clazz) {
-		/* 加载框架数据 */
-		load(clazz);
+		try {
+			/* 加载框架数据 */
+			load(clazz);
 
-		/* 启动netty */
-		EasyServer.start(clazz,getPort());
+			/* 启动netty */
+			EasyServer.start(getPort());
+		} catch (Exception e) {
+			log.error("",e);
+		}
 	}
 	
 	/**
@@ -42,15 +53,21 @@ public class StartEasy {
 		/* 加载配置文件 */
 		Config.loadConfig(constants);
 		
-		/*扫描所有的controller 并完成服务层的注入*/
+		/*获取要扫描的包*/
 		String className = clazz.getName();
 		className = className.substring(0,className.lastIndexOf("."));
 		
 		/* 将要扫描的包名存到全局存储空间，给别的需要的地方使用 */
 		constants.setAttr("rootPath", className);
 		
-		/* 扫描此包下，包括子包的所有的类 */
-		LoadController.loadContrl(className);
+		/* 获取此包下面的所有类（包括jar中的） */
+		LoadClass.loadBeans(className);
+		
+		/* 创建bean对象 */
+		LoadEasyBean.loadBean(constants);
+		
+		/* 创建controller对象 */
+		LoadController.loadContrl(constants);
 		
 	}
 	
@@ -59,15 +76,14 @@ public class StartEasy {
 	 * @return
 	 */
 	private static int getPort() {
-		int port = 8080;
-		Object obj = constants.getAttr("config");
-		if(obj != null) {
-			JSONObject jsonObject = (JSONObject)obj;
-			Object por = jsonObject.get("port");
-			if(por!=null) {
-				port = Integer.parseInt(por.toString());
-			}
+		int port = 8088;
+	
+		JSONObject jsonObject = Config.getConfig(constants);
+		Object por = jsonObject.get("port");
+		if(por!=null) {
+			port = Integer.parseInt(por.toString());
 		}
+		
 		return port;
 	}
 

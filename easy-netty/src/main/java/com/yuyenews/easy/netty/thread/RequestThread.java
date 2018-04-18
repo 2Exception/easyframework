@@ -2,10 +2,14 @@ package com.yuyenews.easy.netty.thread;
 
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSON;
 import com.yuyenews.easy.netty.constant.Constants;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.netty.server.EasyServerHandler;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
@@ -24,6 +28,8 @@ import io.netty.util.CharsetUtil;
  *
  */
 public class RequestThread implements Runnable {
+	
+	private Logger log = LoggerFactory.getLogger(EasyServerHandler.class);
 
 	/**
 	 * netty的request对象
@@ -62,7 +68,7 @@ public class RequestThread implements Runnable {
 			send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("处理请求的时候出错",e);
 		} finally {
 			// 释放请求
 			httpRequest.release();

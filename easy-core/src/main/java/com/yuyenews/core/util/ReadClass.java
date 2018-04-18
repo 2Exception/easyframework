@@ -13,6 +13,9 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 读取class文件
  * 
@@ -20,6 +23,9 @@ import java.util.jar.JarFile;
  *
  */
 public class ReadClass {
+	
+	private static Logger log = LoggerFactory.getLogger(ReadClass.class);
+	
 
 	/**
 	 * 获取某包下（包括该包的所有子包）所有类
@@ -110,7 +116,7 @@ public class ReadClass {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("扫描["+packageName+"]包下的类发送错误",e);
 		}
 
 		return classes;

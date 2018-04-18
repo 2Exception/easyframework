@@ -1,7 +1,16 @@
 package com.yuyenews.resolve;
 
-import com.yuyenews.easy.netty.request.HttpContext;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSONObject;
+import com.yuyenews.core.util.RequestUtil;
+import com.yuyenews.easy.netty.constant.Constants;
 import com.yuyenews.easy.netty.request.HttpRequest;
+import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.resolve.model.EasyMappingModel;
 
 /**
  * 解析请求
@@ -9,8 +18,17 @@ import com.yuyenews.easy.netty.request.HttpRequest;
  *
  */
 public class ResolveRequest {
+	
+	private static Logger log = LoggerFactory.getLogger(ResolveRequest.class);
 
 	private static ResolveRequest resolveRequest;
+	
+	private Constants constants = Constants.getConstants();
+	
+	/**
+	 * 执行器对象
+	 */
+	private ExecuteEasy executeEasy = ExecuteEasy.getExecuteEasy();
 	
 	private ResolveRequest() {}
 	
@@ -26,13 +44,52 @@ public class ResolveRequest {
 	 * @param request
 	 * @return
 	 */
-	public Object resolve(HttpRequest request) {
+	public Object resolve(HttpRequest request,HttpResponse response) {
 		
-		/* 获取context对象 */
-		HttpContext context = HttpContext.getHttpContext();
+		try {
+			Map<String,EasyMappingModel> maps = getControllers();
+			
+			String uri = getRequestPath(request);
+			
+			return executeEasy.execute(maps.get(uri),request.getMethod(),request,response);
+		} catch (Exception e) {
+			log.error("解释请求的时候报错",e);
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("error_code", 500);
+		jsonObject.put("error_info", "解析请求报错");
+		return jsonObject;
+	}
+	
+	/**
+	 * 从uri中提取 请求连接的最末端，用来匹配控制层映射
+	 * @param request
+	 * @return
+	 */
+	private String getRequestPath(HttpRequest request) {
+		/* 获取路径 */
+		String uri = RequestUtil.getUriName(request);
+		if(uri.startsWith("/")) {
+			uri = uri.substring(1, uri.lastIndexOf("."));
+		} else {
+			uri = uri.substring(0, uri.lastIndexOf("."));
+		}
+		return uri;
+	}
+	
+	/**
+	 * 获取所有的controller对象
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private Map<String,EasyMappingModel> getControllers() {
 		
+		Map<String,EasyMappingModel> controlObjects = null;
+		Object obj = constants.getAttr("controlObjects");
+		if(obj != null) {
+			controlObjects = (Map<String,EasyMappingModel>)obj;
+		}
 		
-		
-		return null;
+		return controlObjects;
 	}
 }

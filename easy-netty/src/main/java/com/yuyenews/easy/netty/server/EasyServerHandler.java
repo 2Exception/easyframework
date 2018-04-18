@@ -2,6 +2,9 @@ package com.yuyenews.easy.netty.server;
 
 import java.net.InetAddress;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yuyenews.easy.netty.thread.RequestThread;
 import com.yuyenews.easy.netty.thread.ThreadPool;
 
@@ -19,37 +22,39 @@ import io.netty.util.CharsetUtil;
 
 public class EasyServerHandler extends ChannelHandlerAdapter {
 
+	private Logger log = LoggerFactory.getLogger(EasyServerHandler.class);
+
 	/**
 	 * 接收并处理 客户端请求
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		if (!(msg instanceof FullHttpRequest)) {
-			send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
-			return;
-		}
-		FullHttpRequest httpRequest = (FullHttpRequest) msg;
+		
+		FullHttpRequest httpRequest = null;
 		
 		try {
-			
+			if (!(msg instanceof FullHttpRequest)) {
+				send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
+				return;
+			}
+			httpRequest = (FullHttpRequest) msg;
+
 			/* 用新线程处理请求 */
 			RequestThread requestThread = new RequestThread();
 			requestThread.setHttpRequest(httpRequest);
 			requestThread.setCtx(ctx);
 			ThreadPool.execute(requestThread);
-			
+
 		} catch (Exception e) {
-			System.out.println("处理请求失败!");
-			e.printStackTrace();
-			/* 已经通过线程中的finally 释放请求了，所以这里，在出异常的时候，才释放*/
+			log.error("处理请求失败!", e);
+			/* 已经通过线程中的finally 释放请求了，所以这里，在出异常的时候，才释放 */
 			try {
 				httpRequest.release();
 			} catch (Exception e2) {
 			}
-		} 
+		}
 	}
-	
-	
+
 	/**
 	 * 发送的返回值
 	 * 
@@ -72,7 +77,7 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		//System.out.println("连接的客户端地址:" + ctx.channel().remoteAddress());
+		// System.out.println("连接的客户端地址:" + ctx.channel().remoteAddress());
 		ctx.writeAndFlush("客户端" + InetAddress.getLocalHost().getHostName() + "成功与服务端建立连接！ ");
 		super.channelActive(ctx);
 	}
