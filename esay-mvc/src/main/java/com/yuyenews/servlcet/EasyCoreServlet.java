@@ -27,7 +27,8 @@ public class EasyCoreServlet implements EasyServlet{
 			/* 获取路径 */
 			String uri = RequestUtil.getUriName(request);
 			/* 只有符合指定后缀的请求，才会被识别为控制层接口 */
-			if(uri.endsWith(getHz())) {
+			String hz = getHz();
+			if(uri.endsWith(hz)) {
 				
 				/* 将请求丢给解释器 去解释，并调用对应的控制层方法进行处理 */
 				ResolveRequest resolveRequest = ResolveRequest.getResolveRequest();
@@ -38,7 +39,7 @@ public class EasyCoreServlet implements EasyServlet{
 			} else {
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("error_code", 404);
-				jsonObject.put("error_info", "只有.html结尾的请求，才会被识别为控制层接口");
+				jsonObject.put("error_info", "只有"+hz+"结尾的请求，才会被识别为控制层接口");
 				return jsonObject;
 			}
 		} catch (Exception e) {

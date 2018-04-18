@@ -21,8 +21,7 @@ public class Config {
 	 */
 	public static void loadConfig(Constants constants) {
 		try {
-			/* TODO(需要用特殊办法获取路径，先读物理路径，如果读不到在读jar包里的文件) */
-			String content = FileUtil.readFileString("");
+			String content = FileUtil.readFileString("/easy.json");
 			
 			JSONObject object = JSONObject.parseObject(content);
 			
