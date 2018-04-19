@@ -51,7 +51,7 @@ public class CglibProxy implements MethodInterceptor {
 			Boolean boolean1 = MatchUtil.isMatch(rulm, method.getName());
 			if(boolean1){
 				isProxy = true;
-				obj = c.newInstance();
+				obj = c.getDeclaredConstructor().newInstance();
 			}
 		}
 		if(isProxy){
