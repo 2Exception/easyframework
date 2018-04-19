@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.yuyenews.core.annotation.Controller;
 import com.yuyenews.core.annotation.EasyMapping;
 import com.yuyenews.core.annotation.Resource;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 import com.yuyenews.resolve.model.EasyMappingModel;
 
@@ -30,7 +30,7 @@ public class LoadController {
 	 * @param constants
 	 */
 	@SuppressWarnings("unchecked")
-	public static void loadContrl(Constants constants) {
+	public static void loadContrl(EasySpace constants) {
 		
 		try {
 			Map<String,EasyMappingModel> controlObjects = new HashMap<>();
@@ -124,7 +124,7 @@ public class LoadController {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private static Map<String,EasyBeanModel> getEasyBeans(Constants constants) {
+	private static Map<String,EasyBeanModel> getEasyBeans(EasySpace constants) {
 		Object objs2 = constants.getAttr("easyBeanObjs");
 		Map<String,EasyBeanModel> easyBeanObjs = null;
 		if(objs2 != null) {

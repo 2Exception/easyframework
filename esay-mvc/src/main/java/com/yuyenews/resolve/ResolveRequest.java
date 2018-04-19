@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.core.util.RequestUtil;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
 import com.yuyenews.resolve.model.EasyMappingModel;
@@ -23,7 +23,7 @@ public class ResolveRequest {
 
 	private static ResolveRequest resolveRequest;
 	
-	private Constants constants = Constants.getConstants();
+	private EasySpace constants = EasySpace.getEasySpace();
 	
 	/**
 	 * 执行器对象

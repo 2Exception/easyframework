@@ -1,11 +1,14 @@
 package com.yuyenews.resolve;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yuyenews.base.EasyInters;
+import com.yuyenews.core.util.RequestUtil;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
 import com.yuyenews.resolve.model.EasyMappingModel;
@@ -58,15 +61,24 @@ public class ExecuteEasy {
 			
 			if (strMethod.equals(mathodReuest)) {
 
-				/* TODO(获取拦截器 并执行 控制层执行前的方法) */
-
+				/* 获取拦截器 并执行 控制层执行前的方法 */
+				String uriEnd = RequestUtil.getUriName(request);
+				List<Class<?>> list = ExecuteInters.getInters(uriEnd);
+				Object inres = ExecuteInters.executeIntersStart(list,request, response);
+				if(!inres.toString().equals(EasyInters.SUCCESS)) {
+					return inres;
+				}
+				
 				Object obj = easyMappingModel.getObject();
 				Class<?> cls = easyMappingModel.getCls();
 				Method method2 = cls.getDeclaredMethod(easyMappingModel.getMethod(), new Class[] { HttpRequest.class, HttpResponse.class });
 				Object result = method2.invoke(obj, new Object[] { request, response });
 				
-				/* TODO(执行拦截器 在控制层执行后的方法) */
-				
+				/* 执行拦截器 在控制层执行后的方法 */
+				Object inres2 = ExecuteInters.executeIntersEnd(list,request, response,result);
+				if(!inres2.toString().equals(EasyInters.SUCCESS)) {
+					return inres2;
+				}
 				
 				return result;
 			} else {
@@ -85,4 +97,5 @@ public class ExecuteEasy {
 			return jsonObject;
 		}
 	}
+	
 }

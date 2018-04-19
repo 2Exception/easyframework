@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.core.util.FileUtil;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 
 /**
  * 加载配置数据
@@ -19,7 +19,7 @@ public class Config {
 	/**
 	 * 加载配置文件
 	 */
-	public static void loadConfig(Constants constants) {
+	public static void loadConfig(EasySpace constants) {
 		try {
 			String content = FileUtil.readFileString("/easy.json");
 			
@@ -36,7 +36,7 @@ public class Config {
 	 * @param constants
 	 * @return
 	 */
-	public static JSONObject getConfig(Constants constants) {
+	public static JSONObject getConfig(EasySpace constants) {
 		Object obj = constants.getAttr("config");
 		if(obj != null) {
 			JSONObject jsonObject = (JSONObject)obj;

@@ -8,18 +8,18 @@ import java.util.Map;
  * @author yuye
  *
  */
-public class Constants {
+public class EasySpace {
 
-	private static Constants constants;
+	private static EasySpace constants;
 	
 	private Map<String, Object> map = new Hashtable<>();
 
-	private Constants() {
+	private EasySpace() {
 	}
 
-	public static Constants getConstants() {
+	public static EasySpace getEasySpace() {
 		if (constants == null) {
-			constants = new Constants();
+			constants = new EasySpace();
 		}
 
 		return constants;

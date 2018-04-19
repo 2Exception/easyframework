@@ -5,20 +5,14 @@ import java.net.InetAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yuyenews.easy.netty.request.HttpResponse;
 import com.yuyenews.easy.netty.thread.RequestThread;
 import com.yuyenews.easy.netty.thread.ThreadPool;
 
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import io.netty.handler.codec.http.HttpVersion;
-import io.netty.util.CharsetUtil;
 
 public class EasyServerHandler extends ChannelHandlerAdapter {
 
@@ -31,10 +25,10 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
 		FullHttpRequest httpRequest = null;
-		
+		HttpResponse response = new HttpResponse(null);
 		try {
 			if (!(msg instanceof FullHttpRequest)) {
-				send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
+				response.send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
 				return;
 			}
 			httpRequest = (FullHttpRequest) msg;
@@ -55,22 +49,7 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 		}
 	}
 
-	/**
-	 * 发送的返回值
-	 * 
-	 * @param ctx
-	 *            返回
-	 * @param context
-	 *            消息
-	 * @param status
-	 *            状态
-	 */
-	private void send(ChannelHandlerContext ctx, String context, HttpResponseStatus status) {
-		FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, status,
-				Unpooled.copiedBuffer(context, CharsetUtil.UTF_8));
-		response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain; charset=UTF-8");
-		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
-	}
+	
 
 	/**
 	 * 建立连接时，返回消息

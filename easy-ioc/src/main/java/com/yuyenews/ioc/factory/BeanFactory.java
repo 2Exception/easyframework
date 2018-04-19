@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yuyenews.aop.proxy.CglibProxy;
 import com.yuyenews.core.annotation.EasyAop;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 
 /**
@@ -38,7 +38,12 @@ public class BeanFactory {
 				EasyAop easyAop = method.getAnnotation(EasyAop.class);
 				if(easyAop != null) {
 					list.add(method.getName());
-					aopClass = easyAop.className();
+					if(aopClass == null) {
+						aopClass = easyAop.className();
+					} else if(!aopClass.getName().equals(easyAop.className().getName())) {
+						log.error(className.getName()+"类中的aop注解，className属性存在不同");
+						throw new Exception(className.getName()+"类中的aop注解，className属性存在不同");
+					}
 				}
 			}
 			
@@ -66,7 +71,7 @@ public class BeanFactory {
 	public static Object getBean(String name) {
 		
 		try {
-			Constants constants = Constants.getConstants();
+			EasySpace constants = EasySpace.getEasySpace();
 			
 			Object objs2 = constants.getAttr("easyBeanObjs");
 			Map<String,EasyBeanModel> easyBeanObjs = null;

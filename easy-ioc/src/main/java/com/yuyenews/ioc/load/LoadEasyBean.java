@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.annotation.Resource;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.ioc.factory.BeanFactory;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 
@@ -28,7 +28,7 @@ public class LoadEasyBean {
 	 * @param constants
 	 */
 	@SuppressWarnings({ "unchecked" })
-	public static void loadBean(Constants constants) {
+	public static void loadBean(EasySpace constants) {
 		try {
 			/* 获取所有的bean数据 */
 			Object objs = constants.getAttr("easyBeans");
@@ -72,7 +72,7 @@ public class LoadEasyBean {
 	 * @param constants
 	 * @param easyBeanObjs
 	 */
-	private static void iocBean(Constants constants,Map<String,EasyBeanModel> easyBeanObjs) {
+	private static void iocBean(EasySpace constants,Map<String,EasyBeanModel> easyBeanObjs) {
 		
 		try {
 			for(String key : easyBeanObjs.keySet()) {

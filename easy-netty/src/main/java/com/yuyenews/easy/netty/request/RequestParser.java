@@ -1,11 +1,15 @@
 package com.yuyenews.easy.netty.request;
 
-import java.io.File;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import com.yuyenews.easy.netty.request.model.FileUpLoad;
 
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;
@@ -13,14 +17,16 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
+import io.netty.handler.codec.http.multipart.MixedFileUpload;
 
 /**
  * 参数解析器
+ * 
  * @author yuye
  *
  */
 public class RequestParser {
-	
+
 	private FullHttpRequest fullReq;
 
 	/**
@@ -40,6 +46,7 @@ public class RequestParser {
 	 * @throws BaseCheckedException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> parse() throws IOException {
 		HttpMethod method = fullReq.method();
 
@@ -49,8 +56,7 @@ public class RequestParser {
 			// 是GET请求
 			QueryStringDecoder decoder = new QueryStringDecoder(fullReq.uri());
 			decoder.parameters().entrySet().forEach(entry -> {
-				// entry.getValue()是一个List, 只取第一个元素
-				parmMap.put(entry.getKey(), entry.getValue().get(0));
+				parmMap.put(entry.getKey(), entry.getValue());
 			});
 		} else if (HttpMethod.POST == method) {
 			// 是POST请求
@@ -58,23 +64,43 @@ public class RequestParser {
 			decoder.offer(fullReq);
 
 			List<InterfaceHttpData> parmList = decoder.getBodyHttpDatas();
-			
-			List<File> files = new ArrayList<>();
-			
+
+			Map<String, FileUpLoad> files = new Hashtable<>();
+
 			for (InterfaceHttpData parm : parmList) {
 
-				Attribute data = (Attribute) parm;
-				parmMap.put(data.getName(), data.getValue());
-				
-				if(data.getFile() != null) {
-					files.add(data.getFile());
+				if (parm instanceof Attribute) {
+					Attribute data = (Attribute) parm;
+					List<Object> ps = null;
+					Object objs = parmMap.get(data.getName());
+					if (objs == null) {
+						ps = new ArrayList<>();
+					} else {
+						ps = (List<Object>) objs;
+					}
+					ps.add(data.getValue());
+					parmMap.put(data.getName(), ps);
+
+				} else if (parm instanceof MixedFileUpload) {
+					MixedFileUpload fileUpload = (MixedFileUpload) parm;
+
+					byte[] bs = fileUpload.get();
+
+					InputStream inputStream = new ByteArrayInputStream(bs);
+					
+					FileUpLoad upLoad = new FileUpLoad();
+					upLoad.setFileName(fileUpload.getFilename());
+					upLoad.setInputStream(inputStream);
+					upLoad.setName(fileUpload.getName());
+					
+					files.put(fileUpload.getName(), upLoad);
 				}
+
 			}
 			parmMap.put("files", files);
-		} else {
-			return null;
 		}
 
 		return parmMap;
 	}
+
 }

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.config.Config;
 import com.yuyenews.core.load.LoadClass;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.easy.netty.server.EasyServer;
 import com.yuyenews.ioc.load.LoadEasyBean;
 import com.yuyenews.resolve.LoadController;
@@ -24,7 +24,7 @@ public class StartEasy {
 	/**
 	 * 获取全局存储空间 
 	 */
-	private static Constants constants = Constants.getConstants();
+	private static EasySpace constants = EasySpace.getEasySpace();
 
 	/**
 	 * 启动easy框架

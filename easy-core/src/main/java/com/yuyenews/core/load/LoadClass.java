@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.yuyenews.core.annotation.Controller;
 import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.util.ReadClass;
-import com.yuyenews.easy.netty.constant.Constants;
+import com.yuyenews.easy.netty.constant.EasySpace;
 
 /**
  * 获取项目中的所有class
@@ -24,7 +24,7 @@ public class LoadClass {
 	
 	private static Logger log = LoggerFactory.getLogger(LoadClass.class);
 	
-	private static Constants constants = Constants.getConstants();
+	private static EasySpace constants = EasySpace.getEasySpace();
 
 	/**
 	 * 加载所有bean，包括controller 的class对象
@@ -92,6 +92,5 @@ public class LoadClass {
 		eb.put("annotation", easyBean);
 		easyBeans.add(eb);
 		constants.setAttr("easyBeans", easyBeans);
-		
 	}
 }

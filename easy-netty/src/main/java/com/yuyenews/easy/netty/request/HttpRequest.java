@@ -1,10 +1,15 @@
 package com.yuyenews.easy.netty.request;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.yuyenews.easy.netty.request.model.FileUpLoad;
+import com.yuyenews.easy.netty.sessionm.SessionManager;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -13,16 +18,19 @@ import io.netty.util.CharsetUtil;
 
 /**
  * 请求对象，对原生netty的request的补充
+ * 
  * @author yuye
  *
  */
 public class HttpRequest {
-	
+
+	private Logger logger = LoggerFactory.getLogger(HttpRequest.class);
+
 	/**
 	 * netty原生request
 	 */
 	private FullHttpRequest httpRequest;
-	
+
 	/**
 	 * 请求体
 	 */
@@ -32,14 +40,15 @@ public class HttpRequest {
 	 * 参数
 	 */
 	private Map<String, Object> paremeters;
-	
+
 	/**
 	 * 请求的文件
 	 */
-	private List<File> files;
-	
+	private Map<String, FileUpLoad> files;
+
 	/**
 	 * 构造函数，框架自己用的，程序员用不到，用了也没意义
+	 * 
 	 * @param httpRequest
 	 */
 	public HttpRequest(FullHttpRequest httpRequest) {
@@ -47,9 +56,10 @@ public class HttpRequest {
 		this.setParemeters(getPams(httpRequest));
 		this.httpRequest = httpRequest;
 	}
-	
+
 	/**
 	 * 获取请求方法
+	 * 
 	 * @return
 	 */
 	public HttpMethod getMethod() {
@@ -58,6 +68,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取要请求的uri
+	 * 
 	 * @return
 	 */
 	public String getUri() {
@@ -66,6 +77,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的参数集
+	 * 
 	 * @return
 	 */
 	public Map<String, Object> getParemeters() {
@@ -74,13 +86,14 @@ public class HttpRequest {
 
 	/**
 	 * 组装请求的参数
+	 * 
 	 * @param paremeters
 	 */
 	private void setParemeters(Map<String, Object> paremeters) {
 		Object obj = paremeters.get("files");
 		if (obj != null) {
 			@SuppressWarnings("unchecked")
-			List<File> files = (List<File>) obj;
+			Map<String, FileUpLoad> files = (Map<String, FileUpLoad>) obj;
 			this.files = files;
 			paremeters.remove("files");
 		}
@@ -88,31 +101,56 @@ public class HttpRequest {
 		this.paremeters = paremeters;
 
 	}
-	
+
 	/**
 	 * 获取单个请求的参数
+	 * 
 	 * @param key
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public Object getParemeter(String key) {
-		return paremeters.get(key);
+		Object objs = paremeters.get(key);
+		if (objs != null) {
+			List<Object> lis = (List<Object>) objs;
+			return lis.get(0);
+		}
+		return null;
+	}
+
+	/**
+	 * 获取单个请求的参数
+	 * 
+	 * @param key
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Object> getParemeterValues(String key) {
+		Object objs = paremeters.get(key);
+		if (objs != null) {
+			List<Object> lis = (List<Object>) objs;
+			return lis;
+		}
+		return null;
 	}
 
 	/**
 	 * 获取请求的文件
+	 * 
 	 * @return
 	 */
-	public List<File> getFiles() {
+	public Map<String, FileUpLoad> getFiles() {
 		return files;
 	}
 
 	/**
 	 * 获取单个请求的文件
+	 * 
 	 * @return
 	 */
-	public File getFile() {
+	public FileUpLoad getFile(String name) {
 		if (files != null && files.size() > 0) {
-			return files.get(0);
+			return files.get(name);
 		} else {
 			return null;
 		}
@@ -120,6 +158,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的url
+	 * 
 	 * @return
 	 */
 	public String getUrl() {
@@ -128,14 +167,16 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的body
+	 * 
 	 * @return
 	 */
 	public String getBody() {
 		return body;
 	}
-	
+
 	/**
 	 * 获取netty原生request
+	 * 
 	 * @return
 	 */
 	public FullHttpRequest getHttpRequest() {
@@ -155,14 +196,65 @@ public class HttpRequest {
 
 	/**
 	 * 将GET, POST所有请求参数转换成Map对象
+	 * 
 	 * @param request
 	 */
 	private Map<String, Object> getPams(FullHttpRequest request) {
 		try {
 			return new RequestParser(request).parse();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+			logger.error("从请求中获取参数，报错", e);
+		}
 		return new Hashtable<>();
 	}
+
+	/**
+	 * 获取httpSession
+	 * 
+	 * @param sessionId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public HttpSession getHttpSession() {
+
+		Object obj = getParemeter("sessionId");
+		if (obj == null) {
+			return null;
+		}
+
+		String sessionId = obj.toString();
+
+		HttpContext context = HttpContext.getHttpContext();
+
+		Map<String, HttpSession> sessions = null;
+
+		Object sessionList = context.getAttr("session");
+		if (sessionList != null) {
+			sessions = (Map<String, HttpSession>) sessionList;
+		} else {
+			/* 如果session列表不存在，则新建一个session列表 */
+			sessions = new Hashtable<>();
+		}
+
+		HttpSession httpSession = sessions.get(sessionId);
+
+		if (httpSession != null) {
+			if (SessionManager.hasShiXiao(httpSession)) {
+				/* 如果失效了，就remove掉 */
+				sessions.remove(sessionId);
+
+				httpSession = null;
+			}
+		}
+
+		if (httpSession == null) {
+			/* 如果没有这个id对应的session 就新建一个，并保存 */
+			httpSession = new HttpSession();
+			sessions.put(sessionId, httpSession);
+			context.setAttr("session", sessions);
+		}
+
+		return httpSession;
+	}
+
 }
