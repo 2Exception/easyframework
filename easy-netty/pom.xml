@@ -10,20 +10,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jdk14</artifactId>
+			<groupId>com.yuyenews</groupId>
+			<artifactId>easy-server</artifactId>
 		</dependency>
 	</dependencies>
 </project>

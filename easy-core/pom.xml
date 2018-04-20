@@ -11,7 +11,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.yuyenews</groupId>
-			<artifactId>easy-netty</artifactId>
+			<artifactId>easy-server</artifactId>
 		</dependency>
 	</dependencies>
 </project>

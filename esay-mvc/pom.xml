@@ -13,5 +13,9 @@
 	  		<groupId>com.yuyenews</groupId>
 	  		<artifactId>easy-ioc</artifactId>
 	  	</dependency>
+	  	<dependency>
+	  		<groupId>com.yuyenews</groupId>
+	  		<artifactId>easy-netty</artifactId>
+	  	</dependency>
 	</dependencies>
 </project>

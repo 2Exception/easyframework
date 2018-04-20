@@ -10,6 +10,7 @@
 		<module>esay-mvc</module>
 		<module>easy-core</module>
 		<module>easy-netty</module>
+		<module>easy-server</module>
 	</modules>
 
 	<dependencyManagement>
@@ -37,6 +38,12 @@
 			<dependency>
 				<groupId>com.yuyenews</groupId>
 				<artifactId>easy-netty</artifactId>
+				<version>0.0.1</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.yuyenews</groupId>
+				<artifactId>easy-server</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 
