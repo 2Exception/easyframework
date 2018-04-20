@@ -17,6 +17,9 @@ public class HttpSession implements Serializable {
 
 	private Map<String, Object> map;
 
+	/**
+	 * 创建时间
+	 */
 	private Date date;
 
 	public HttpSession() {
