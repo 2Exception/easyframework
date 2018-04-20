@@ -9,12 +9,9 @@ import com.alibaba.fastjson.JSON;
 import com.yuyenews.easy.netty.constant.EasySpace;
 import com.yuyenews.easy.netty.request.HttpRequest;
 import com.yuyenews.easy.netty.request.HttpResponse;
-import com.yuyenews.easy.netty.server.EasyServerHandler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
-import io.netty.handler.codec.http.FullHttpResponse;
-import io.netty.handler.codec.http.HttpResponseStatus;
 
 /**
  * 处理请求的线程
@@ -23,17 +20,12 @@ import io.netty.handler.codec.http.HttpResponseStatus;
  */
 public class RequestThread implements Runnable {
 	
-	private Logger log = LoggerFactory.getLogger(EasyServerHandler.class);
+	private Logger log = LoggerFactory.getLogger(RequestThread.class);
 
 	/**
 	 * netty的request对象
 	 */
 	private FullHttpRequest httpRequest;
-	
-	/**
-	 * netty的response对象
-	 */
-	private FullHttpResponse httpResponse;
 
 	private ChannelHandlerContext ctx;
 	
@@ -58,16 +50,18 @@ public class RequestThread implements Runnable {
 			HttpRequest request = new HttpRequest(httpRequest);
 			
 			/* 组装httpresponse对象 */
-			HttpResponse response = new HttpResponse(null);
+			HttpResponse response = new HttpResponse(ctx);
 			
 			/* 通过反射执行核心servlet */
 			Class<?> cls = Class.forName(className);
 			Object object = cls.getDeclaredConstructor().newInstance();
 			Method helloMethod = cls.getDeclaredMethod("doRequest", new Class[] { HttpRequest.class ,HttpResponse.class});
-			Object result = helloMethod.invoke(object, new Object[] { request ,new HttpResponse(httpResponse)});
-			
+			Object result = helloMethod.invoke(object, new Object[] { request ,response});
+			if(result != null && result.toString().equals("no")) {
+				return;
+			}
 			/* 将控制层返回的数据，转成json字符串返回 */
-			response.send(ctx, JSON.toJSONString(result), HttpResponseStatus.OK);
+			response.send(JSON.toJSONString(result));
 			
 		} catch (Exception e) {
 			log.error("处理请求的时候出错",e);

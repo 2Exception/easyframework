@@ -25,19 +25,21 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
 		FullHttpRequest httpRequest = null;
-		HttpResponse response = new HttpResponse(null);
+		HttpResponse response = new HttpResponse(ctx);
 		try {
-			if (!(msg instanceof FullHttpRequest)) {
-				response.send(ctx, "未知请求!", HttpResponseStatus.BAD_REQUEST);
-				return;
-			}
-			httpRequest = (FullHttpRequest) msg;
+			if (msg instanceof FullHttpRequest) {
+				
+				httpRequest = (FullHttpRequest) msg;
 
-			/* 用新线程处理请求 */
-			RequestThread requestThread = new RequestThread();
-			requestThread.setHttpRequest(httpRequest);
-			requestThread.setCtx(ctx);
-			ThreadPool.execute(requestThread);
+				/* 用新线程处理请求 */
+				RequestThread requestThread = new RequestThread();
+				requestThread.setHttpRequest(httpRequest);
+				requestThread.setCtx(ctx);
+				ThreadPool.execute(requestThread);
+			} else {
+				response.send("未知请求!", HttpResponseStatus.BAD_REQUEST);
+			}
+			
 
 		} catch (Exception e) {
 			log.error("处理请求失败!", e);
@@ -56,7 +58,6 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		// System.out.println("连接的客户端地址:" + ctx.channel().remoteAddress());
 		ctx.writeAndFlush("客户端" + InetAddress.getLocalHost().getHostName() + "成功与服务端建立连接！ ");
 		super.channelActive(ctx);
 	}
