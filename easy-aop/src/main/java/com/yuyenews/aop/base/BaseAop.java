@@ -16,4 +16,9 @@ public interface BaseAop {
 	 * 方法结束后调用
 	 */
 	void endMethod(Object[] args);
+	
+	/**
+	 * 出异常后调用
+	 */
+	void exp();
 }

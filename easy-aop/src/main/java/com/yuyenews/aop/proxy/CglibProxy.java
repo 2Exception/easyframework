@@ -1,9 +1,7 @@
 package com.yuyenews.aop.proxy;
 
 import java.lang.reflect.Method;
-import java.util.List;
-
-import com.yuyenews.core.util.MatchUtil;
+import java.util.Map;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -20,7 +18,7 @@ public class CglibProxy implements MethodInterceptor {
 	
 	private Class<?> c;
 	
-	private List<String> list;
+	private Map<String,String> list;
 
 	/**
 	 * 获取代理对象
@@ -28,7 +26,7 @@ public class CglibProxy implements MethodInterceptor {
 	 * @param cl aop类的class
 	 * @return
 	 */
-	public Object getProxy(Class<?> clazz,Class<?> cl,List<String> list) {
+	public Object getProxy(Class<?> clazz,Class<?> cl,Map<String,String> list) {
 		
 		this.c = cl;
 		this.list = list;
@@ -47,23 +45,30 @@ public class CglibProxy implements MethodInterceptor {
 	public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
 		Boolean isProxy = false;
 		Object obj = null;
-		for(String rulm : list){
-			Boolean boolean1 = MatchUtil.isMatch(rulm, method.getName());
-			if(boolean1){
-				isProxy = true;
-				obj = c.getDeclaredConstructor().newInstance();
-			}
+		String str = list.get(method.getName());
+		if(str != null && str.equals("yes")){
+			isProxy = true;
+			obj = c.getDeclaredConstructor().newInstance();
 		}
+		
 		if(isProxy){
 			Method m2 = c.getDeclaredMethod("startMethod",new Class[] {Object[].class}); 
 			m2.invoke(obj,new Object[] {args});
 		}
 		
-		Object o1 = methodProxy.invokeSuper(o, args);
-		
-		if(isProxy){
-			Method m3 = c.getDeclaredMethod("endMethod",new Class[] {Object[].class}); 
-			m3.invoke(obj,new Object[] {args});
+		Object o1 = null;
+		try {
+			o1 = methodProxy.invokeSuper(o, args);
+			
+			if(isProxy){
+				Method m3 = c.getDeclaredMethod("endMethod",new Class[] {Object[].class}); 
+				m3.invoke(obj,new Object[] {args});
+			}
+		} catch (Exception e) {
+			if(isProxy){
+				Method m4 = c.getDeclaredMethod("exp"); 
+				m4.invoke(obj);
+			}
 		}
 		return o1;
 	}
