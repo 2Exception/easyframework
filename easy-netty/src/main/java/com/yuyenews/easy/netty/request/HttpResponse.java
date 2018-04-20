@@ -102,8 +102,12 @@ public class HttpResponse {
 				response.headers().set(key, header.get(key));
 			}
 		}
-
-		response.headers().set(HttpHeaderNames.CONTENT_TYPE, getConfig().getString("content_type"));
+		
+		Object contentType = getConfig().get("content_type");
+		if(contentType == null) {
+			contentType = "text/json; charset=UTF-8";
+		}
+		response.headers().set(HttpHeaderNames.CONTENT_TYPE, contentType.toString());
 		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
 	}
 
