@@ -1,7 +1,7 @@
 package com.yuyenews.base;
 
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 
 /**
  * 拦截器基类，强制继承

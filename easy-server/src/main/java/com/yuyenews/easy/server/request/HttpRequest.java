@@ -1,4 +1,4 @@
-package com.yuyenews.easy.netty.request;
+package com.yuyenews.easy.server.request;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -8,8 +8,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.yuyenews.easy.netty.request.model.FileUpLoad;
-import com.yuyenews.easy.netty.sessionm.SessionManager;
+import com.yuyenews.easy.server.request.model.FileUpLoad;
+import com.yuyenews.easy.server.sessionm.SessionManager;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.FullHttpRequest;

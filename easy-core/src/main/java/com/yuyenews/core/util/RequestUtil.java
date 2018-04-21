@@ -1,6 +1,6 @@
 package com.yuyenews.core.util;
 
-import com.yuyenews.easy.netty.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpRequest;
 
 /**
  * 请求工具类

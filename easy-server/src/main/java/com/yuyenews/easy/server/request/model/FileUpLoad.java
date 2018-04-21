@@ -1,4 +1,4 @@
-package com.yuyenews.easy.netty.request.model;
+package com.yuyenews.easy.server.request.model;
 
 import java.io.InputStream;
 

@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.yuyenews.easy.netty.constant.EasySpace;
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.server.constant.EasySpace;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;

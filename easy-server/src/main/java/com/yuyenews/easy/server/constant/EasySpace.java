@@ -1,4 +1,4 @@
-package com.yuyenews.easy.netty.constant;
+package com.yuyenews.easy.server.constant;
 
 import java.util.Hashtable;
 import java.util.Map;

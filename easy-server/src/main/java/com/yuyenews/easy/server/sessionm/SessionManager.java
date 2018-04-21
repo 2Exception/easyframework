@@ -1,14 +1,14 @@
-package com.yuyenews.easy.netty.sessionm;
+package com.yuyenews.easy.server.sessionm;
 
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yuyenews.easy.netty.constant.EasySpace;
-import com.yuyenews.easy.netty.request.HttpContext;
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpSession;
+import com.yuyenews.easy.server.constant.EasySpace;
+import com.yuyenews.easy.server.request.HttpContext;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpSession;
 
 /**
  * 管理session

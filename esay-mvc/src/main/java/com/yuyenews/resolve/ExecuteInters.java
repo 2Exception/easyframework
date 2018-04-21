@@ -11,11 +11,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.base.EasyInters;
-import com.yuyenews.config.Config;
+import com.yuyenews.core.util.ConfigUtil;
 import com.yuyenews.core.util.MatchUtil;
-import com.yuyenews.easy.netty.constant.EasySpace;
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.server.constant.EasySpace;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 
 /**
  * 执行拦截器
@@ -95,7 +95,7 @@ public class ExecuteInters {
 			List<Class<?>> list = new ArrayList<>();
 			
 			EasySpace constants = EasySpace.getEasySpace();
-			JSONObject jsonObject = Config.getConfig(constants);
+			JSONObject jsonObject = ConfigUtil.getConfig(constants);
 			Object obj = jsonObject.get("inters");
 			if(obj != null) {
 				JSONArray array = JSONArray.parseArray(JSON.toJSONString(obj));

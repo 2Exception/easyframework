@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.yuyenews.core.annotation.Controller;
 import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.util.ReadClass;
-import com.yuyenews.easy.netty.constant.EasySpace;
+import com.yuyenews.easy.server.constant.EasySpace;
 
 /**
  * 获取项目中的所有class

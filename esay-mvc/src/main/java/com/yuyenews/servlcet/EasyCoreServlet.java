@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yuyenews.config.Config;
+import com.yuyenews.core.util.ConfigUtil;
 import com.yuyenews.core.util.RequestUtil;
-import com.yuyenews.easy.netty.constant.EasySpace;
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
 import com.yuyenews.easy.netty.servlet.EasyServlet;
+import com.yuyenews.easy.server.constant.EasySpace;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 import com.yuyenews.resolve.ResolveRequest;
 
 /**
@@ -59,7 +59,7 @@ public class EasyCoreServlet implements EasyServlet{
 
 		EasySpace constants = EasySpace.getEasySpace();
 		
-		JSONObject jsonObject = Config.getConfig(constants);
+		JSONObject jsonObject = ConfigUtil.getConfig(constants);
 		
 		Object contrl = jsonObject.get("contrl");
 		if(contrl != null) {

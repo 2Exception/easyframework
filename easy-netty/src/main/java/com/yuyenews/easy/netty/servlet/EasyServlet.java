@@ -1,7 +1,7 @@
 package com.yuyenews.easy.netty.servlet;
 
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 
 /**
  * servlet 模板

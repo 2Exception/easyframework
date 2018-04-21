@@ -36,6 +36,9 @@ public class ReadClass {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static Set<String> loadClassList(String packageName) throws IOException {
+		if(packageName == null) {
+			return new LinkedHashSet<>();
+		}
 		return getClasses(packageName);
 	}
 

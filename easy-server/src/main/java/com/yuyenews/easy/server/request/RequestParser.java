@@ -1,4 +1,4 @@
-package com.yuyenews.easy.netty.request;
+package com.yuyenews.easy.server.request;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import com.yuyenews.easy.netty.request.model.FileUpLoad;
+import com.yuyenews.easy.server.request.model.FileUpLoad;
 
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpMethod;

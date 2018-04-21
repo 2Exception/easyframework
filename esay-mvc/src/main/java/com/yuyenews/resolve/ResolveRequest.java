@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.core.util.RequestUtil;
-import com.yuyenews.easy.netty.constant.EasySpace;
-import com.yuyenews.easy.netty.request.HttpRequest;
-import com.yuyenews.easy.netty.request.HttpResponse;
+import com.yuyenews.easy.server.constant.EasySpace;
+import com.yuyenews.easy.server.request.HttpRequest;
+import com.yuyenews.easy.server.request.HttpResponse;
 import com.yuyenews.resolve.model.EasyMappingModel;
 
 /**

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.yuyenews.core.annotation.Controller;
 import com.yuyenews.core.annotation.EasyMapping;
 import com.yuyenews.core.annotation.Resource;
-import com.yuyenews.easy.netty.constant.EasySpace;
+import com.yuyenews.easy.server.constant.EasySpace;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 import com.yuyenews.resolve.model.EasyMappingModel;
 

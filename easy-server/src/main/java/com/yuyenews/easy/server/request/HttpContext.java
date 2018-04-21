@@ -1,4 +1,4 @@
-package com.yuyenews.easy.netty.request;
+package com.yuyenews.easy.server.request;
 
 import java.util.Hashtable;
 import java.util.Map;

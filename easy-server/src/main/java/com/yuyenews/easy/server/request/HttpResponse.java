@@ -1,10 +1,10 @@
-package com.yuyenews.easy.netty.request;
+package com.yuyenews.easy.server.request;
 
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.yuyenews.easy.netty.constant.EasySpace;
+import com.yuyenews.easy.server.constant.EasySpace;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;

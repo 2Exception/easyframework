@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.yuyenews.aop.proxy.CglibProxy;
 import com.yuyenews.core.annotation.EasyAop;
 import com.yuyenews.core.annotation.Traction;
-import com.yuyenews.easy.netty.constant.EasySpace;
+import com.yuyenews.easy.server.constant.EasySpace;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 
 /**

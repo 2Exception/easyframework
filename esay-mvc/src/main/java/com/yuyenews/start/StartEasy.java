@@ -6,9 +6,11 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.config.Config;
 import com.yuyenews.core.load.LoadClass;
-import com.yuyenews.easy.netty.constant.EasySpace;
+import com.yuyenews.core.util.ConfigUtil;
 import com.yuyenews.easy.netty.server.EasyServer;
+import com.yuyenews.easy.server.constant.EasySpace;
 import com.yuyenews.ioc.load.LoadEasyBean;
+import com.yuyenews.ioc.load.LoadSqlMappers;
 import com.yuyenews.resolve.LoadController;
 import com.yuyenews.servlcet.EasyCoreServlet;
 
@@ -63,6 +65,9 @@ public class StartEasy {
 		/* 获取此包下面的所有类（包括jar中的） */
 		LoadClass.loadBeans(className);
 		
+		/* 创建sqlmapper对象 */
+		LoadSqlMappers.loadMapper(constants);
+		
 		/* 创建bean对象 */
 		LoadEasyBean.loadBean(constants);
 		
@@ -78,7 +83,7 @@ public class StartEasy {
 	private static int getPort() {
 		int port = 8088;
 	
-		JSONObject jsonObject = Config.getConfig(constants);
+		JSONObject jsonObject = ConfigUtil.getConfig(constants);
 		Object por = jsonObject.get("port");
 		if(por!=null) {
 			port = Integer.parseInt(por.toString());
