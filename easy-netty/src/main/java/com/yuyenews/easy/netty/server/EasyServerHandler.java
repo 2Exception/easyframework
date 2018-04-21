@@ -14,6 +14,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpResponseStatus;
 
+/**
+ * 接收netty服务
+ * @author yuye
+ *
+ */
 public class EasyServerHandler extends ChannelHandlerAdapter {
 
 	private Logger log = LoggerFactory.getLogger(EasyServerHandler.class);

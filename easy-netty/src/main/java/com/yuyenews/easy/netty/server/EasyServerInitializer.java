@@ -7,6 +7,11 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 
+/**
+ * 定义netty服务
+ * @author yuye
+ *
+ */
 public class EasyServerInitializer extends ChannelInitializer<SocketChannel> {
 
 	@Override

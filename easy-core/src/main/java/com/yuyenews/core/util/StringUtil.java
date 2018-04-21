@@ -1,5 +1,10 @@
 package com.yuyenews.core.util;
 
+/**
+ * 字符串工具类
+ * @author yuye
+ *
+ */
 public class StringUtil {
 
 	/**

@@ -65,7 +65,7 @@ public class StartEasy {
 		/* 获取此包下面的所有类（包括jar中的） */
 		LoadClass.loadBeans(className);
 		
-		/* 创建sqlmapper对象 */
+		/* 创建所有的dao对象 */
 		LoadSqlMappers.loadMapper(constants);
 		
 		/* 创建bean对象 */

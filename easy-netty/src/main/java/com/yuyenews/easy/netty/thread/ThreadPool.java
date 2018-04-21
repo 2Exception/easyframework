@@ -3,6 +3,11 @@ package com.yuyenews.easy.netty.thread;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 线程池
+ * @author yuye
+ *
+ */
 public class ThreadPool {
 
 	private static ExecutorService pool = Executors.newCachedThreadPool();

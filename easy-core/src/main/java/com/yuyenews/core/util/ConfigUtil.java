@@ -3,6 +3,11 @@ package com.yuyenews.core.util;
 import com.alibaba.fastjson.JSONObject;
 import com.yuyenews.easy.server.constant.EasySpace;
 
+/**
+ * 配置文件工具类
+ * @author yuye
+ *
+ */
 public class ConfigUtil {
 
 	/**

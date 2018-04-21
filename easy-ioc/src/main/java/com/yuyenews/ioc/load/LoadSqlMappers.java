@@ -16,6 +16,11 @@ import com.yuyenews.core.util.StringUtil;
 import com.yuyenews.easy.server.constant.EasySpace;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
 
+/**
+ * 加载所有的dao对象
+ * @author yuye
+ *
+ */
 public class LoadSqlMappers {
 	
 	private static Logger log = LoggerFactory.getLogger(LoadSqlMappers.class);
