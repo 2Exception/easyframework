@@ -2,15 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.github.yuye</groupId>
+		<groupId>com.github.serlockholmes</groupId>
 		<artifactId>easy-framework</artifactId>
-		<version>0.0.1</version>
+		<version>0.1</version>
 	</parent>
 	<artifactId>easy-netty</artifactId>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.yuye</groupId>
+			<groupId>com.github.serlockholmes</groupId>
 			<artifactId>easy-server</artifactId>
 		</dependency>
 	</dependencies>

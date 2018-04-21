@@ -32,7 +32,7 @@ public class RequestParser {
 	/**
 	 * 构造一个解析器
 	 * 
-	 * @param req
+	 * @param req 请求对象
 	 */
 	public RequestParser(FullHttpRequest req) {
 		this.fullReq = req;
@@ -43,8 +43,7 @@ public class RequestParser {
 	 * 
 	 * @return 包含所有请求参数的键值对, 如果没有参数, 则返回空Map
 	 *
-	 * @throws BaseCheckedException
-	 * @throws IOException
+	 * @throws IOException 异常
 	 */
 	@SuppressWarnings("unchecked")
 	public Map<String, Object> parse() throws IOException {

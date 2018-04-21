@@ -22,7 +22,8 @@ public class SessionManager {
 	
 	/**
 	 * 获取sessionId
-	 * @return
+	 * @param request 请求对象
+	 * @return sessionid
 	 */
 	public static String getSessionId(HttpRequest request) {
 		Object obj = request.getHeaders().get("sessionId");
@@ -37,9 +38,8 @@ public class SessionManager {
 	
 	/**
 	 * 获取session
-	 * @param request
-	 * @param context
-	 * @return
+	 * @param request 请求对象
+	 * @return session
 	 */
 	public static HttpSession getHttpSession(HttpRequest request) {
 		
@@ -77,8 +77,7 @@ public class SessionManager {
 	
 	/**
 	 * 获取session列表
-	 * @param context
-	 * @return
+	 * @return session列表
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String,HttpSession> getSessionList() {
@@ -97,8 +96,8 @@ public class SessionManager {
 
 	/**
 	 * 判断session是否已经失效了
-	 * @param httpSession
-	 * @return
+	 * @param httpSession session对象
+	 * @return 是否过时
 	 */
 	private static boolean hasShiXiao(HttpSession httpSession) {
 		long mil = httpSession.getDate().getTime();
@@ -125,7 +124,7 @@ public class SessionManager {
 	/**
 	 * 获取配置文件
 	 * 
-	 * @return
+	 * @return 配置文件对象
 	 */
 	private static JSONObject getConfig() {
 		EasySpace constants = EasySpace.getEasySpace();

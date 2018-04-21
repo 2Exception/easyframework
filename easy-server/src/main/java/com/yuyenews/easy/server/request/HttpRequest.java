@@ -48,7 +48,7 @@ public class HttpRequest {
 	
 	/**
 	 * 构造函数，框架自己用的，程序员用不到，用了也没意义
-	 * @param httpRequest
+	 * @param httpRequest 原生请求对象
 	 */
 	public HttpRequest(FullHttpRequest httpRequest) {
 		this.body = getBody(httpRequest);
@@ -58,7 +58,7 @@ public class HttpRequest {
 	
 	/**
 	 * 获取请求方法
-	 * @return
+	 * @return 请求方法
 	 */
 	public HttpMethod getMethod() {
 		return httpRequest.method();
@@ -66,7 +66,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取要请求的uri
-	 * @return
+	 * @return 请求方法
 	 */
 	public String getUri() {
 		return httpRequest.uri();
@@ -74,8 +74,8 @@ public class HttpRequest {
 	
 	/**
 	 * 获取请求头数据
-	 * @param key
-	 * @return
+	 * @param key 键
+	 * @return 头数据
 	 */
 	public Object getHeader(String key) {
 		return httpRequest.headers().get(key);
@@ -83,7 +83,7 @@ public class HttpRequest {
 	
 	/**
 	 * 获取请求头
-	 * @return
+	 * @return 请求头
 	 */
 	public HttpHeaders getHeaders() {
 		return httpRequest.headers();
@@ -91,7 +91,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的参数集
-	 * @return
+	 * @return 请求参数
 	 */
 	public Map<String, Object> getParemeters() {
 		return paremeters;
@@ -99,7 +99,7 @@ public class HttpRequest {
 
 	/**
 	 * 组装请求的参数
-	 * @param paremeters
+	 * @param paremeters 请求参数
 	 */
 	private void setParemeters(Map<String, Object> paremeters) {
 		Object obj = paremeters.get("files");
@@ -116,8 +116,8 @@ public class HttpRequest {
 	
 	/**
 	 * 获取单个请求的参数
-	 * @param key
-	 * @return
+	 * @param key 键
+	 * @return 请求参数
 	 */
 	@SuppressWarnings("unchecked")
 	public Object getParemeter(String key) {
@@ -131,8 +131,8 @@ public class HttpRequest {
 	
 	/**
 	 * 获取单个请求的参数
-	 * @param key
-	 * @return
+	 * @param key 键
+	 * @return 请求参数
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Object> getParemeterValues(String key) {
@@ -146,7 +146,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的文件
-	 * @return
+	 * @return 文件列表
 	 */
 	public Map<String,FileUpLoad> getFiles() {
 		return files;
@@ -154,7 +154,9 @@ public class HttpRequest {
 
 	/**
 	 * 获取单个请求的文件
-	 * @return
+	 * 
+	 * @param name 名称
+	 * @return 单个文件
 	 */
 	public FileUpLoad getFile(String name) {
 		if (files != null && files.size() > 0) {
@@ -166,7 +168,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的url
-	 * @return
+	 * @return 请求的路径
 	 */
 	public String getUrl() {
 		return httpRequest.uri();
@@ -174,7 +176,7 @@ public class HttpRequest {
 
 	/**
 	 * 获取请求的body
-	 * @return
+	 * @return 请求体
 	 */
 	public String getBody() {
 		return body;
@@ -182,7 +184,7 @@ public class HttpRequest {
 	
 	/**
 	 * 获取netty原生request
-	 * @return
+	 * @return 原生请求对象
 	 */
 	public FullHttpRequest getHttpRequest() {
 		return httpRequest;
@@ -191,8 +193,8 @@ public class HttpRequest {
 	/**
 	 * 获取body参数
 	 * 
-	 * @param request
-	 * @return
+	 * @param request 请求对象
+	 * @return 请求体
 	 */
 	private String getBody(FullHttpRequest request) {
 		ByteBuf buf = request.content();
@@ -201,7 +203,8 @@ public class HttpRequest {
 
 	/**
 	 * 将GET, POST所有请求参数转换成Map对象
-	 * @param request
+	 * @param request 原生请求对象
+	 * @return 请求参数
 	 */
 	private Map<String, Object> getPams(FullHttpRequest request) {
 		try {
@@ -214,8 +217,7 @@ public class HttpRequest {
 	
 	/**
 	 * 获取httpSession
-	 * @param sessionId
-	 * @return
+	 * @return session
 	 */
 	public HttpSession getHttpSession() {
 		return SessionManager.getHttpSession(this);

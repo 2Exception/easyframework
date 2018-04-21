@@ -31,7 +31,7 @@ public class HttpResponse {
 	/**
 	 * 构造函数，框架自己用的，程序员用不到，用了也没意义
 	 * 
-	 * @param httpRequest
+	 * @param ctx 请求
 	 */
 	public HttpResponse(ChannelHandlerContext ctx) {
 		this.ctx = ctx;
@@ -40,8 +40,8 @@ public class HttpResponse {
 	/**
 	 * 设置请求头
 	 * 
-	 * @param key
-	 * @param value
+	 * @param key 键
+	 * @param value 值
 	 */
 	@Deprecated
 	public void setHeader(String key, String value) {
@@ -113,6 +113,7 @@ public class HttpResponse {
 
 	/**
 	 * 设置跨域
+	 * 
 	 */
 	private void crossDomain(FullHttpResponse response) {
 		JSONObject jsonObject = getConfig();
@@ -131,7 +132,7 @@ public class HttpResponse {
 	/**
 	 * 获取配置文件
 	 * 
-	 * @return
+	 * @return 配置文件对象
 	 */
 	private JSONObject getConfig() {
 		EasySpace constants = EasySpace.getEasySpace();

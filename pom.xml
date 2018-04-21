@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.yuye</groupId>
+	<groupId>com.github.serlockholmes</groupId>
 	<artifactId>easy-framework</artifactId>
-	<version>0.0.1</version>
+	<version>0.1</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>easy-ioc</module>
@@ -16,43 +16,43 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-aop</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-ioc</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-mvc</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-core</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-netty</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			
 			<dependency>
-				<groupId>com.github.yuye</groupId>
+				<groupId>com.github.serlockholmes</groupId>
 				<artifactId>easy-server</artifactId>
-				<version>0.0.1</version>
+				<version>0.1</version>
 			</dependency>
 			
 			<!-- mybatis 整合包 -->
-			<dependency>
-				<groupId>com.github.yuye.easy-mybatis</groupId>
+			<!-- <dependency>
+				<groupId>com.github.serlockholmes.easy-mybatis</groupId>
 				<artifactId>easy-mybatis</artifactId>
-				<version>0.0.1</version>
-			</dependency>
+				<version>0.1</version>
+			</dependency> -->
 
 			<dependency>
 				<groupId>io.netty</groupId>
