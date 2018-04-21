@@ -13,5 +13,10 @@
 			<groupId>com.yuyenews</groupId>
 			<artifactId>easy-server</artifactId>
 		</dependency>
+		<!-- mybatis 整合包 -->
+		<dependency>
+			<groupId>com.yuyenews.easy-mybatis</groupId>
+			<artifactId>easy-mybatis</artifactId>
+		</dependency>
 	</dependencies>
 </project>
