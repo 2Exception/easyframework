@@ -7,10 +7,10 @@
 	<modules>
 		<module>easy-ioc</module>
 		<module>easy-aop</module>
-		<module>esay-mvc</module>
 		<module>easy-core</module>
 		<module>easy-netty</module>
 		<module>easy-server</module>
+		<module>easy-mvc</module>
 	</modules>
 
 	<dependencyManagement>
@@ -27,7 +27,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.github.yuye</groupId>
-				<artifactId>esay-mvc</artifactId>
+				<artifactId>easy-mvc</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
