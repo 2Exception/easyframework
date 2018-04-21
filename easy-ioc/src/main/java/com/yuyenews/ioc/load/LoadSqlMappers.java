@@ -62,6 +62,7 @@ public class LoadSqlMappers {
 	 * @throws Exception
 	 */
 	private static Object getSqlPoryObject(Class<?> cls) throws Exception {
+		/* 这个类在 整合mybatis的中间包里，所以这里要用反射的方式来调用，不然无法散耦 */
 		Class<?> sqlPory = Class.forName("com.yuyenews.easy.porxy.SqlProxy");
 		Object object = sqlPory.getDeclaredConstructor().newInstance();
 		Method helloMethod = sqlPory.getDeclaredMethod("getProxy", new Class[] { Class.class});
