@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yuyenews</groupId>
+	<groupId>com.github.yuye</groupId>
 	<artifactId>easy-framework</artifactId>
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
@@ -16,40 +16,40 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>easy-aop</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>easy-ioc</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>esay-mvc</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>easy-core</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>easy-netty</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			
 			<dependency>
-				<groupId>com.yuyenews</groupId>
+				<groupId>com.github.yuye</groupId>
 				<artifactId>easy-server</artifactId>
 				<version>0.0.1</version>
 			</dependency>
 			
 			<!-- mybatis 整合包 -->
 			<dependency>
-				<groupId>com.yuyenews.easy-mybatis</groupId>
+				<groupId>com.github.yuye.easy-mybatis</groupId>
 				<artifactId>easy-mybatis</artifactId>
 				<version>0.0.1</version>
 			</dependency>
