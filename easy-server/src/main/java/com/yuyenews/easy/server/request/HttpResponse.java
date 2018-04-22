@@ -1,5 +1,7 @@
 package com.yuyenews.easy.server.request;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
@@ -110,7 +112,31 @@ public class HttpResponse {
 		response.headers().set(HttpHeaderNames.CONTENT_TYPE, contentType.toString());
 		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
 	}
-
+	
+	/**
+	 * 文件下载
+	 * @param file 要下载的文件
+	 */
+	public void sendFile(File file) {
+		
+	}
+	
+	/**
+	 * 文件下载
+	 * @param file 要下载的文件
+	 */
+	public void sendFile(byte[] file) {
+		
+	}
+	
+	/**
+	 * 文件下载
+	 * @param file 要下载的文件
+	 */
+	public void sendFile(InputStream file) {
+		
+	}
+	
 	/**
 	 * 设置跨域
 	 * 
