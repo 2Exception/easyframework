@@ -43,12 +43,10 @@ public class LoadEasyBean {
 			
 			/* 创建bean对象，并保存起来 */
 			Object objs2 = constants.getAttr("easyBeanObjs");
-			Map<String,EasyBeanModel> easyBeanObjs = null;
+			Map<String,EasyBeanModel> easyBeanObjs = new HashMap<>();
 			if(objs2 != null) {
 				easyBeanObjs = (Map<String,EasyBeanModel>)objs2;
-			} else {
-				easyBeanObjs = new HashMap<>();
-			}
+			} 
 			for(Map<String,Object> map : contorls) {
 				
 				Class<?> cls = (Class<?>)map.get("className");

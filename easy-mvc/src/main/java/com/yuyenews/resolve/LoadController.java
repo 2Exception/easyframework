@@ -131,11 +131,9 @@ public class LoadController {
 	@SuppressWarnings("unchecked")
 	private static Map<String,EasyBeanModel> getEasyBeans(EasySpace constants) {
 		Object objs2 = constants.getAttr("easyBeanObjs");
-		Map<String,EasyBeanModel> easyBeanObjs = null;
+		Map<String,EasyBeanModel> easyBeanObjs = new HashMap<>();
 		if(objs2 != null) {
 			easyBeanObjs = (Map<String,EasyBeanModel>)objs2;
-		} else {
-			easyBeanObjs = new HashMap<>();
 		}
 		
 		return easyBeanObjs;

@@ -60,12 +60,10 @@ public class LoadClass {
 	@SuppressWarnings("unchecked")
 	private static void loadController(Class<?> cls,Controller controller) {
 		Object objs = constants.getAttr("contorls");
-		List<Map<String,Object>> contorls = null;
+		List<Map<String,Object>> contorls = new ArrayList<>();
 		if(objs != null) {
 			contorls = (List<Map<String,Object>>)objs;
-		} else {
-			contorls = new ArrayList<>();
-		}
+		} 
 		Map<String,Object> contorl = new HashMap<>();
 		contorl.put("className", cls);
 		contorl.put("annotation", controller);
@@ -81,12 +79,10 @@ public class LoadClass {
 	@SuppressWarnings("unchecked")
 	private static void loadEasyBean(Class<?> cls,EasyBean easyBean ) {
 		Object objs = constants.getAttr("easyBeans");
-		List<Map<String,Object>> easyBeans = null;
+		List<Map<String,Object>> easyBeans = new ArrayList<>();
 		if(objs != null) {
 			easyBeans = (List<Map<String,Object>>)objs;
-		} else {
-			easyBeans = new ArrayList<>();
-		}
+		} 
 		Map<String,Object> eb = new HashMap<>();
 		eb.put("className", cls);
 		eb.put("annotation", easyBean);

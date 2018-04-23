@@ -29,9 +29,10 @@ public class SessionManager {
 		Object obj = request.getHeaders().get("sessionId");
 		if(obj == null) {
 			obj = request.getParemeter("sessionId");
-		}
-		if(obj == null) {
-			return null;
+			
+			if(obj == null) {
+				return null;
+			}
 		}
 		return obj.toString();
 	}
@@ -81,14 +82,11 @@ public class SessionManager {
 	 */
 	@SuppressWarnings("unchecked")
 	public static Map<String,HttpSession> getSessionList() {
-		Map<String,HttpSession> sessions = null;
+		Map<String,HttpSession> sessions = new Hashtable<>();
 		
 		Object sessionList = context.getAttr("session");
 		if(sessionList != null) {
 			sessions = (Map<String,HttpSession>)sessionList;
-		} else {
-			/* 如果session列表不存在，则新建一个session列表 */
-			sessions = new Hashtable<>();
 		}
 		
 		return sessions;
