@@ -100,12 +100,17 @@ public class LoadController {
 				if(resource!=null){
 					f.setAccessible(true);
 					
-					EasyBeanModel beanModel = easyBeanObjs.get(resource.name());
+					String filedName = resource.name();
+					if(filedName == null || filedName.equals("")) {
+						filedName = f.getName();
+					}
+					
+					EasyBeanModel beanModel = easyBeanObjs.get(filedName);
 					if(beanModel!=null){
 						f.set(obj, beanModel.getObj());
 						log.info(cls.getName()+"的属性"+f.getName()+"注入成功");
 					}else{
-						throw new Exception("不存在name为"+resource.name()+"的easyBean");
+						throw new Exception("不存在name为"+filedName+"的easyBean");
 					}
 				}
 			}

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.annotation.Resource;
+import com.yuyenews.core.util.StringUtil;
 import com.yuyenews.easy.server.constant.EasySpace;
 import com.yuyenews.ioc.factory.BeanFactory;
 import com.yuyenews.ioc.load.model.EasyBeanModel;
@@ -53,11 +54,16 @@ public class LoadEasyBean {
 				Class<?> cls = (Class<?>)map.get("className");
 				EasyBean easyBean = (EasyBean)map.get("annotation");
 				
+				String beanName = easyBean.name();
+				if(beanName == null || beanName.equals("")) {
+					beanName = StringUtil.getFirstLowerCase(cls.getSimpleName());
+				}
+				
 				EasyBeanModel beanModel = new EasyBeanModel();
-				beanModel.setName(easyBean.name());
+				beanModel.setName(beanName);
 				beanModel.setCls(cls);
 				beanModel.setObj(BeanFactory.createBean(cls));
-				easyBeanObjs.put(easyBean.name(), beanModel);
+				easyBeanObjs.put(beanName, beanModel);
 				
 			}
 			/* 注入对象 */
@@ -86,12 +92,17 @@ public class LoadEasyBean {
 					if(resource!=null){
 						f.setAccessible(true);
 						
-						EasyBeanModel beanModel = easyBeanObjs.get(resource.name());
+						String filedName = resource.name();
+						if(filedName == null || filedName.equals("")) {
+							filedName = f.getName();
+						}
+						
+						EasyBeanModel beanModel = easyBeanObjs.get(filedName);
 						if(beanModel!=null){
 							f.set(obj, beanModel.getObj());
 							log.info(cls.getName()+"的属性"+f.getName()+"注入成功");
 						}else{
-							throw new Exception("不存在name为"+resource.name()+"的easyBean");
+							throw new Exception("不存在name为"+filedName+"的easyBean");
 						}
 					}
 				}
