@@ -13,10 +13,5 @@
 			<groupId>com.github.serlockholmes</groupId>
 			<artifactId>easy-server</artifactId>
 		</dependency>
-		<!-- mybatis 整合包 此包正在开发中 -->
-		<dependency>
-			<groupId>com.github.easy-mybatis</groupId>
-			<artifactId>easy-mybatis</artifactId>
-		</dependency>
 	</dependencies>
 </project>

@@ -54,7 +54,7 @@ public class LoadSqlMappers {
 			}
 			constants.setAttr("easyBeanObjs", easyBeanObjs);
 		} catch (Exception e) {
-			log.error("加载并注入sqlMapper的时候出现错误",e);
+			log.error("加载并注入dao的时候出现错误",e);
 		} 
 	}
 	
@@ -81,10 +81,10 @@ public class LoadSqlMappers {
 	private static String getDaosPath(EasySpace constants) {
 		JSONObject jsonObject = ConfigUtil.getConfig(constants);
 		if(jsonObject != null) {
-			Object mybatis = jsonObject.get("mybatis");
-			if(mybatis != null) {
-				JSONObject mybatis2 = JSONObject.parseObject(JSON.toJSONString(mybatis));
-				Object daos = mybatis2.get("daos");
+			Object jdbc = jsonObject.get("jdbc");
+			if(jdbc != null) {
+				JSONObject jdbc2 = JSONObject.parseObject(JSON.toJSONString(jdbc));
+				Object daos = jdbc2.get("daos");
 				if(daos != null) {
 					return daos.toString();
 				}

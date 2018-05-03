@@ -46,13 +46,6 @@
 				<artifactId>easy-server</artifactId>
 				<version>0.1</version>
 			</dependency>
-			
-			<!-- mybatis 整合包 -->
-			<dependency>
-				<groupId>com.github.easy-mybatis</groupId>
-				<artifactId>easy-mybatis</artifactId>
-				<version>0.1</version>
-			</dependency>
 
 			<dependency>
 				<groupId>io.netty</groupId>

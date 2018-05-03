@@ -90,7 +90,7 @@ public class ExecuteEasy {
 			}
 		} catch (Exception e) {
 			log.error("执行控制层的时候报错",e);
-			/* 如果请求方式和controller的映射不一致，则提示客户端 */
+			
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("error_code", 500);
 			jsonObject.put("error_info", "执行控制层的时候报错");

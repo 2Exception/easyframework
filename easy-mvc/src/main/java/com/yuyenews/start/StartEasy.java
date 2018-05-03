@@ -1,5 +1,7 @@
 package com.yuyenews.start;
 
+import java.lang.reflect.Method;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +76,8 @@ public class StartEasy {
 		/* 创建controller对象 */
 		LoadController.loadContrl(constants);
 		
+		/* 加载sqlMapper文件 */
+		loadSqlMappers();
 	}
 	
 	/**
@@ -92,4 +96,17 @@ public class StartEasy {
 		return port;
 	}
 
+	/**
+	 * 加载sqlMapper
+	 */
+	private static void loadSqlMappers() {
+		try {
+			Class<?> cls = Class.forName("com.yuyenews.easy.init.InitSqlMapper");
+			Object object = cls.getDeclaredConstructor().newInstance();
+			Method helloMethod = cls.getDeclaredMethod("readSqlMapper");
+			helloMethod.invoke(object);
+		} catch (Exception e) {
+			log.error("加载sqlMapper失败",e);
+		}
+	}
 }
