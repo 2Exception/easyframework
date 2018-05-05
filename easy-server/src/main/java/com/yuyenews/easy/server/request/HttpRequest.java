@@ -1,6 +1,7 @@
 package com.yuyenews.easy.server.request;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import com.yuyenews.easy.server.request.model.FileUpLoad;
 import com.yuyenews.easy.server.sessionm.SessionManager;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
@@ -221,5 +223,21 @@ public class HttpRequest {
 	 */
 	public HttpSession getHttpSession() {
 		return SessionManager.getHttpSession(this);
+	}
+	
+	/**
+	 * 获取客户端IP
+	 * @return
+	 */
+	public String getIp() {
+		String ipAddr="0.0.0.0";
+		
+        String clientIP = String.valueOf(httpRequest.headers().get("X-Forwarded-For"));
+        if (clientIP == null || clientIP.equals("null")) {
+        		ChannelHandlerContext ctx = (ChannelHandlerContext) httpRequest;
+            InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+            clientIP = insocket.getAddress().getHostAddress();
+        }
+        return ipAddr;
 	}
 }

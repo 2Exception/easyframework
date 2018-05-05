@@ -30,7 +30,7 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
 		FullHttpRequest httpRequest = null;
-		HttpResponse response = new HttpResponse(ctx);
+		
 		try {
 			if (msg instanceof FullHttpRequest) {
 				
@@ -42,6 +42,7 @@ public class EasyServerHandler extends ChannelHandlerAdapter {
 				requestThread.setCtx(ctx);
 				ThreadPool.execute(requestThread);
 			} else {
+				HttpResponse response = new HttpResponse(ctx);
 				response.send("未知请求!", HttpResponseStatus.BAD_REQUEST);
 			}
 			

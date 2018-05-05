@@ -106,7 +106,6 @@ public class StartEasy {
 			Method helloMethod = cls.getDeclaredMethod("readSqlMapper");
 			helloMethod.invoke(object);
 		} catch (Exception e) {
-			log.error("加载sqlMapper失败",e);
 		}
 	}
 }
