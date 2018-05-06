@@ -76,8 +76,8 @@ public class StartEasy {
 		/* 创建controller对象 */
 		LoadController.loadContrl(constants);
 		
-		/* 加载sqlMapper文件 */
-		loadSqlMappers();
+		/* 加载jdbc模块 */
+		loadJdbc();
 	}
 	
 	/**
@@ -97,13 +97,13 @@ public class StartEasy {
 	}
 
 	/**
-	 * 加载sqlMapper
+	 * 加载jdbc模块
 	 */
-	private static void loadSqlMappers() {
+	private static void loadJdbc() {
 		try {
-			Class<?> cls = Class.forName("com.yuyenews.easy.init.InitSqlMapper");
+			Class<?> cls = Class.forName("com.yuyenews.easy.init.InitJdbc");
 			Object object = cls.getDeclaredConstructor().newInstance();
-			Method helloMethod = cls.getDeclaredMethod("readSqlMapper");
+			Method helloMethod = cls.getDeclaredMethod("init");
 			helloMethod.invoke(object);
 		} catch (Exception e) {
 		}
