@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.yuyenews.core.annotation.EasyBean;
 import com.yuyenews.core.util.ConfigUtil;
 import com.yuyenews.core.util.ReadClass;
 import com.yuyenews.core.util.StringUtil;
@@ -44,6 +45,11 @@ public class LoadSqlMappers {
 			for(String className : classes) {
 				
 				Class<?> cls = Class.forName(className);
+				
+				EasyBean easyBean = cls.getAnnotation(EasyBean.class);
+				if(easyBean != null) {
+					throw new Exception("Dao 不允许加EasyBean注解，相关Dao["+cls.getName()+"]");
+				}
 				String beanName = StringUtil.getFirstLowerCase(cls.getSimpleName());
 				EasyBeanModel beanModel = new EasyBeanModel();
 				beanModel.setName(beanName);
@@ -85,7 +91,7 @@ public class LoadSqlMappers {
 			if(jdbc != null) {
 				JSONObject jdbc2 = JSONObject.parseObject(JSON.toJSONString(jdbc));
 				Object daos = jdbc2.get("daos");
-				if(daos != null) {
+				if(!StringUtil.isNull(daos)) {
 					return daos.toString();
 				}
 			}

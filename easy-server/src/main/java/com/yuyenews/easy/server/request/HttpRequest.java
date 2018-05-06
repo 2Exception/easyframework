@@ -34,6 +34,11 @@ public class HttpRequest {
 	private FullHttpRequest httpRequest;
 	
 	/**
+	 * netty原生通道
+	 */
+	private ChannelHandlerContext ctx;
+	
+	/**
 	 * 请求体
 	 */
 	private String body;
@@ -52,10 +57,11 @@ public class HttpRequest {
 	 * 构造函数，框架自己用的，程序员用不到，用了也没意义
 	 * @param httpRequest 原生请求对象
 	 */
-	public HttpRequest(FullHttpRequest httpRequest) {
+	public HttpRequest(FullHttpRequest httpRequest,ChannelHandlerContext ctx) {
 		this.body = getBody(httpRequest);
 		this.setParemeters(getPams(httpRequest));
 		this.httpRequest = httpRequest;
+		this.ctx = ctx;
 	}
 	
 	/**
@@ -230,14 +236,11 @@ public class HttpRequest {
 	 * @return
 	 */
 	public String getIp() {
-		String ipAddr="0.0.0.0";
-		
         String clientIP = String.valueOf(httpRequest.headers().get("X-Forwarded-For"));
         if (clientIP == null || clientIP.equals("null")) {
-        		ChannelHandlerContext ctx = (ChannelHandlerContext) httpRequest;
-            InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+            InetSocketAddress insocket = (InetSocketAddress) this.ctx.channel().remoteAddress();
             clientIP = insocket.getAddress().getHostAddress();
         }
-        return ipAddr;
+        return clientIP;
 	}
 }

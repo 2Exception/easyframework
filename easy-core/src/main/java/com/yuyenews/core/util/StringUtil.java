@@ -19,6 +19,18 @@ public class StringUtil {
 		return str3.toLowerCase()+str2;
 	}
 	
+	/**
+	 * 判断字符串是否为空
+	 * @param obj
+	 * @return
+	 */
+	public static boolean isNull(Object obj) {
+		if(obj == null || obj.toString().trim().equals("")) {
+			return true;
+		}
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		String a = "SdfFvg";
 		

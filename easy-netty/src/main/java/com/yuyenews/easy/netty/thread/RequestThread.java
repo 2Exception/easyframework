@@ -47,7 +47,7 @@ public class RequestThread implements Runnable {
 			String className = constants.getAttr("core").toString();
 			
 			/* 组装httprequest对象 */
-			HttpRequest request = new HttpRequest(httpRequest);
+			HttpRequest request = new HttpRequest(httpRequest,ctx);
 			
 			/* 组装httpresponse对象 */
 			HttpResponse response = new HttpResponse(ctx);
