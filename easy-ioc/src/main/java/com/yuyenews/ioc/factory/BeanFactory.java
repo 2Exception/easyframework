@@ -30,15 +30,15 @@ public class BeanFactory {
 	public static Object createBean(Class<?> className) {
 		try {
 			
-			Map<String,String> list = new HashMap<>();
+			Map<String,Class<?>> list = new HashMap<>();
 			
 			/* 判断当前类中有没有方法有 aop注解 */
-			Class<?> aopClass = getAopClass(className,list);
+			getAopClass(className,list);
 			
 			/* 如果有aop注解，则通过动态代理来创建bean */
 			if(list != null && list.size()>0) {
 				CglibProxy cglibProxy = new CglibProxy();
-				return cglibProxy.getProxy(className,aopClass, list);
+				return cglibProxy.getProxy(className, list);
 			} else {
 				/* 如果没有aop注解，则直接new一个bean */
 				return className.getDeclaredConstructor().newInstance();
@@ -51,12 +51,7 @@ public class BeanFactory {
 	}
 
 	
-	private static Class<?> getAopClass(Class<?> className,Map<String,String> list) throws Exception {
-		boolean hasTrac = false;
-		boolean hasAopCls = false;
-		
-		Class<?> aopClass = null;
-		
+	private static void getAopClass(Class<?> className,Map<String,Class<?>> list) throws Exception {
 		
 		Method[] methods = className.getMethods();
 		for(Method method : methods) {
@@ -70,28 +65,12 @@ public class BeanFactory {
 			}
 			
 			if(easyAop != null) {
-				hasAopCls = true;
-				list.put(method.getName(),"yes");
-				if(aopClass == null) {
-					aopClass = easyAop.className();
-				} else if(!aopClass.getName().equals(easyAop.className().getName())) {
-					log.error(className.getName()+"类中的aop注解，className属性存在不同");
-					throw new Exception(className.getName()+"类中的aop注解，className属性存在不同");
-				}
+				list.put(method.getName(),easyAop.className());
 			} else if(traction != null) {
-				hasTrac = true;
-				list.put(method.getName(),"yes");
-				aopClass = Class.forName("com.yuyenews.easy.traction.TractionAop");
+				Class<?> aopClass = Class.forName("com.yuyenews.easy.traction.TractionAop");
+				list.put(method.getName(),aopClass);
 			}
 		}
-		
-		/* 校验同一个类里面的方法只能用同一个aop注解 */
-		if(hasAopCls && hasTrac) {
-			log.error(className.getName()+"类中同时存在EasyAop和Traction注解");
-			throw new Exception(className.getName()+"类中同时存在EasyAop和Traction注解");
-		}
-		
-		return aopClass;
 	}
 	
 	

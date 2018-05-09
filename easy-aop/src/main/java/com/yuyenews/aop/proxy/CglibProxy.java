@@ -16,9 +16,7 @@ public class CglibProxy implements MethodInterceptor {
 
 	private Enhancer enhancer;
 	
-	private Class<?> c;
-	
-	private Map<String,String> list;
+	private Map<String,Class<?>> list;
 
 	/**
 	 * 获取代理对象
@@ -26,9 +24,8 @@ public class CglibProxy implements MethodInterceptor {
 	 * @param cl aop类的class
 	 * @return
 	 */
-	public Object getProxy(Class<?> clazz,Class<?> cl,Map<String,String> list) {
+	public Object getProxy(Class<?> clazz,Map<String,Class<?>> list) {
 		
-		this.c = cl;
 		this.list = list;
 		enhancer = new Enhancer();
 		// 设置需要创建子类的类
@@ -43,15 +40,10 @@ public class CglibProxy implements MethodInterceptor {
 	 */
 	@Override
 	public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
-		Boolean isProxy = false;
 		Object obj = null;
-		String str = list.get(method.getName());
-		if(str != null && str.equals("yes")){
-			isProxy = true;
+		Class<?> c = list.get(method.getName());
+		if(c != null){
 			obj = c.getDeclaredConstructor().newInstance();
-		}
-		
-		if(isProxy){
 			Method m2 = c.getDeclaredMethod("startMethod",new Class[] {Object[].class}); 
 			m2.invoke(obj,new Object[] {args});
 		}
@@ -60,12 +52,12 @@ public class CglibProxy implements MethodInterceptor {
 		try {
 			o1 = methodProxy.invokeSuper(o, args);
 			
-			if(isProxy){
+			if(c != null){
 				Method m3 = c.getDeclaredMethod("endMethod",new Class[] {Object[].class}); 
 				m3.invoke(obj,new Object[] {args});
 			}
 		} catch (Exception e) {
-			if(isProxy){
+			if(c != null){
 				Method m4 = c.getDeclaredMethod("exp"); 
 				m4.invoke(obj);
 			}
